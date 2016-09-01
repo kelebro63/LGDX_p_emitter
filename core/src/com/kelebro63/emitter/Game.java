@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter {
@@ -29,21 +30,28 @@ public class Game extends ApplicationAdapter {
 //		camera.position.y = (Game.HEIGHT / 2);//400;
 //		camera.update();
 
+
 		peBlueSmoke = new ParticleEffect();
 		peBlueSmoke.load(Gdx.files.internal("smoke1.p"),Gdx.files.internal(""));
-		peBlueSmoke.setFlip(true, true);
 		peBlueSmoke.getEmitters().first().setPosition(0, height / 4 * 3);
+
+		ParticleEmitter particleEmitter = peBlueSmoke.getEmitters().get(0);
+		ParticleEmitter.SpawnShapeValue shape = particleEmitter.getSpawnShape();//
+		shape.setShape(ParticleEmitter.SpawnShape.line);
+		particleEmitter.getSpawnHeight().setHigh(height / 3);
+		particleEmitter.getSpawnWidth().setHigh(0f);
+		//particleEmitter.getSpawnShape().
+
+
 		peBlueSmoke.start();
 
 		peRedSmoke = new ParticleEffect();
 		peRedSmoke.load(Gdx.files.internal("smoke2.p"),Gdx.files.internal(""));
-		peRedSmoke.setFlip(true, true);
 		peRedSmoke.getEmitters().first().setPosition(width, height / 4 * 2);
 		peRedSmoke.start();
 
 		peYellowSmoke = new ParticleEffect();
 		peYellowSmoke.load(Gdx.files.internal("smoke3.p"),Gdx.files.internal(""));
-		peYellowSmoke.setFlip(true, true);
 		peYellowSmoke.getEmitters().first().setPosition(0,  height / 4);
 		peYellowSmoke.start();
 	}
