@@ -33,32 +33,26 @@ public class Game extends ApplicationAdapter {
 
 		peBlueSmoke = new ParticleEffect();
 		peBlueSmoke.load(Gdx.files.internal("smoke1.p"),Gdx.files.internal(""));
-		peBlueSmoke.getEmitters().first().setPosition(0, height / 4 * 3);
-
-		ParticleEmitter particleEmitter = peBlueSmoke.getEmitters().get(0);
-		ParticleEmitter.SpawnShapeValue shape = particleEmitter.getSpawnShape();//
-		shape.setShape(ParticleEmitter.SpawnShape.line);
-		particleEmitter.getSpawnHeight().setHigh(height / 3);
-		particleEmitter.getSpawnWidth().setHigh(0f);
-		//particleEmitter.getSpawnShape().
-
-
-		peBlueSmoke.start();
+		peBlueSmoke.getEmitters().first().setPosition(0, height / 6 * 4);
+		setHeightForPE(peBlueSmoke, height).start();
 
 		peRedSmoke = new ParticleEffect();
 		peRedSmoke.load(Gdx.files.internal("smoke2.p"),Gdx.files.internal(""));
-		peRedSmoke.getEmitters().first().setPosition(width, height / 4 * 2);
-		peRedSmoke.start();
+		peRedSmoke.getEmitters().first().setPosition(width, height / 6 * 2);
+		setHeightForPE(peRedSmoke, height).start();
 
 		peYellowSmoke = new ParticleEffect();
 		peYellowSmoke.load(Gdx.files.internal("smoke3.p"),Gdx.files.internal(""));
-		peYellowSmoke.getEmitters().first().setPosition(0,  height / 4);
-		peYellowSmoke.start();
+		peYellowSmoke.getEmitters().first().setPosition(0, 0);
+		setHeightForPE(peYellowSmoke, height).start();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		float value_r = 33.0f;
+		float value_g = 36.0f;
+		float value_b = 67.0f;
+		Gdx.gl.glClearColor(value_r/255f, value_g/255f, value_b/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		peBlueSmoke.update(Gdx.graphics.getDeltaTime());
@@ -84,6 +78,17 @@ public class Game extends ApplicationAdapter {
 			peYellowSmoke.reset();
 		}
 
+	}
+
+	private ParticleEmitter setHeightForPE(ParticleEffect effect, int height) {
+		ParticleEmitter particleEmitter = effect.getEmitters().get(0);
+		ParticleEmitter.SpawnShapeValue shape = particleEmitter.getSpawnShape();//
+		shape.setShape(ParticleEmitter.SpawnShape.line);
+		particleEmitter.getSpawnHeight().setHigh(height / 4);
+		particleEmitter.getSpawnWidth().setHigh(0f);
+		//particleEmitter.getSpawnShape().
+
+		return particleEmitter;
 	}
 	
 	@Override
