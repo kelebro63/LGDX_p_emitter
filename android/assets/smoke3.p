@@ -188,4 +188,4 @@ additive: false
 behind: false
 premultipliedAlpha: false
 - Image Path -
-dust.png
+dust_yellow.png
